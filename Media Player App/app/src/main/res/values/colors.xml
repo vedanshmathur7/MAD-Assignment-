@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Brand / Primary -->
+    <color name="primary">#5C6BC0</color>
+    <color name="primary_dark">#3949AB</color>
+    <color name="primary_variant">#7986CB</color>
+    <color name="on_primary">#FFFFFF</color>
+
+    <!-- Secondary / Accent -->
+    <color name="secondary">#26C6DA</color>
+    <color name="on_secondary">#000000</color>
+
+    <!-- Backgrounds & Surfaces -->
+    <color name="background">#F0F2F8</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="on_surface">#1C1B1F</color>
+
+    <!-- Text -->
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+
+    <!-- Status colours -->
+    <color name="error">#B00020</color>
+    <color name="success">#2E7D32</color>
+
+    <!-- Control buttons tonal -->
+    <color name="btn_tonal_bg">#E8EAF6</color>
+    <color name="btn_tonal_text">#3949AB</color>
+</resources>

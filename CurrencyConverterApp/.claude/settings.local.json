@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(./gradlew assembleDebug)",
+      "Read(//usr/lib/jvm/**)",
+      "Bash(java -version)",
+      "Bash(javac -version)"
+    ]
+  }
+}

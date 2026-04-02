@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Media Player App</string>
+    <string name="subtitle">Audio &amp; Video Playback</string>
+
+    <!-- Section headers -->
+    <string name="audio_section">AUDIO FILE</string>
+    <string name="video_section">VIDEO STREAM</string>
+    <string name="controls_label">PLAYBACK CONTROLS</string>
+
+    <!-- Buttons -->
+    <string name="open_file">Open File</string>
+    <string name="open_url">Open URL</string>
+    <string name="btn_play">Play</string>
+    <string name="btn_pause">Pause</string>
+    <string name="btn_stop">Stop</string>
+    <string name="btn_restart">Restart</string>
+
+    <!-- Hints / placeholders -->
+    <string name="url_hint">Enter video URL</string>
+    <string name="no_file">No file selected</string>
+    <string name="video_placeholder">Video will appear here</string>
+
+    <!-- Status messages -->
+    <string name="status_ready">Ready</string>
+    <string name="status_loading">Loading…</string>
+
+    <!-- Toast messages -->
+    <string name="toast_no_file">No file selected</string>
+    <string name="toast_enter_url">Enter video URL</string>
+    <string name="toast_playback_error">Playback error</string>
+    <string name="toast_permission_denied">Storage permission denied</string>
+</resources>
