@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- ConstraintLayout: A flexible layout that allows you to position and size widgets in a flexible way relative to each other -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,6 +10,10 @@
     android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
+    <!-- TextView for displaying sensor status messages -->
+    <!-- android:id - Unique identifier for the view -->
+    <!-- android:gravity="center" - Centers the text horizontally and vertically -->
+    <!-- app:layout_constraintTop_toTopOf="parent" - Pins the top of this view to the top of the screen -->
     <TextView
         android:id="@+id/status_message"
         android:layout_width="match_parent"
@@ -22,6 +27,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- CardView for Accelerometer section -->
+    <!-- app:cardCornerRadius - Rounds the corners of the card -->
+    <!-- app:cardElevation - Creates a shadow effect to give depth -->
+    <!-- app:layout_constraintTop_toBottomOf="@id/status_message" - Positions this card below the status text -->
     <androidx.cardview.widget.CardView
         android:id="@+id/card_accelerometer"
         android:layout_width="match_parent"
@@ -34,12 +43,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
+        <!-- LinearLayout: Stacks its children vertically (android:orientation="vertical") -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp">
 
+            <!-- Title for the accelerometer section -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -49,6 +60,7 @@
                 android:textStyle="bold"
                 android:layout_marginBottom="12dp"/>
 
+            <!-- TextView to show X-axis reading -->
             <TextView
                 android:id="@+id/acc_x_value"
                 android:layout_width="wrap_content"
@@ -57,6 +69,7 @@
                 android:textColor="@color/primary_text"
                 android:textSize="16sp" />
 
+            <!-- TextView to show Y-axis reading -->
             <TextView
                 android:id="@+id/acc_y_value"
                 android:layout_width="wrap_content"
@@ -66,6 +79,7 @@
                 android:textSize="16sp"
                 android:layout_marginTop="4dp"/>
 
+            <!-- TextView to show Z-axis reading -->
             <TextView
                 android:id="@+id/acc_z_value"
                 android:layout_width="wrap_content"
@@ -77,6 +91,7 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
+    <!-- CardView for Light Sensor section -->
     <androidx.cardview.widget.CardView
         android:id="@+id/card_light"
         android:layout_width="match_parent"
@@ -104,6 +119,7 @@
                 android:textStyle="bold"
                 android:layout_marginBottom="12dp"/>
 
+            <!-- TextView to show light intensity value -->
             <TextView
                 android:id="@+id/light_value"
                 android:layout_width="wrap_content"
@@ -114,6 +130,7 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
+    <!-- CardView for Proximity Sensor section -->
     <androidx.cardview.widget.CardView
         android:id="@+id/card_proximity"
         android:layout_width="match_parent"
@@ -141,6 +158,7 @@
                 android:textStyle="bold"
                 android:layout_marginBottom="12dp"/>
 
+            <!-- TextView to show proximity distance value -->
             <TextView
                 android:id="@+id/proximity_value"
                 android:layout_width="wrap_content"
