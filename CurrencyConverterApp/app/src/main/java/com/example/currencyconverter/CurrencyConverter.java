@@ -1,74 +1,58 @@
-package com.example.currencyconverter;
+package com.example.currencyconverter; // The folder this file lives in
+
+import java.util.Locale; // Used for formatting numbers based on country rules
 
 /**
- * CurrencyConverter - Handles all currency conversion logic.
- *
- * Fixed conversion rates (all relative to INR as base currency):
- *   1 INR  = 1.0    INR
- *   1 USD  = 83.0   INR
- *   1 JPY  = 1/1.8  INR  (i.e., 1 INR = 1.8 JPY)
- *   1 EUR  = 90.0   INR
+ * A helper class that handles the math for currency conversion.
  */
 public class CurrencyConverter {
 
-    // Rate: 1 unit of each currency expressed in INR
-    private static final double INR_RATE = 1.0;
-    private static final double USD_RATE = 83.0;
-    private static final double JPY_RATE = 1.0 / 1.8;   // ≈ 0.5556 INR per JPY
-    private static final double EUR_RATE = 90.0;
+    // These are our fixed conversion rates (Relative to 1 INR)
+    private static final double USD_TO_INR = 83.0; // 1 USD = 83 INR
+    private static final double EUR_TO_INR = 90.0; // 1 EUR = 90 INR
+    private static final double JPY_TO_INR = 0.55; // 1 JPY = 0.55 INR
+    private static final double INR_TO_INR = 1.0;  // 1 INR = 1 INR (Base)
 
     /**
-     * Returns the value of 1 unit of the given currency in INR.
-     *
-     * @param currency Currency code (INR, USD, JPY, EUR)
-     * @return Equivalent value in INR; returns 1.0 for unknown codes
+     * Converts an amount from one currency to another using INR as a middle-man.
      */
-    private static double toINRRate(String currency) {
+    public static double convert(double amount, String from, String to) {
+        // Step 1: Convert the starting amount into INR
+        double amountInINR = convertToINR(amount, from);
+        
+        // Step 2: Convert that INR amount into the target currency
+        return convertFromINR(amountInINR, to);
+    }
+
+    /**
+     * Multiplies the amount by the rate to get the value in INR.
+     */
+    private static double convertToINR(double amount, String currency) {
         switch (currency) {
-            case "INR": return INR_RATE;
-            case "USD": return USD_RATE;
-            case "JPY": return JPY_RATE;
-            case "EUR": return EUR_RATE;
-            default:    return 1.0;
+            case "USD": return amount * USD_TO_INR; // Multiply USD by 83
+            case "EUR": return amount * EUR_TO_INR; // Multiply EUR by 90
+            case "JPY": return amount * JPY_TO_INR; // Multiply JPY by 0.55
+            default:    return amount; // If it's already INR, just return the amount
         }
     }
 
     /**
-     * Converts an amount from one currency to another.
-     *
-     * Strategy: source → INR → target (two-step via base currency).
-     *
-     * @param amount       The amount to convert (must be > 0)
-     * @param fromCurrency Source currency code
-     * @param toCurrency   Target currency code
-     * @return Converted amount in target currency
-     * @throws IllegalArgumentException if amount is negative
+     * Divides the INR value by the rate to get the final currency value.
      */
-    public static double convert(double amount, String fromCurrency, String toCurrency) {
-        if (amount < 0) {
-            throw new IllegalArgumentException("Amount cannot be negative");
+    private static double convertFromINR(double amountInINR, String currency) {
+        switch (currency) {
+            case "USD": return amountInINR / USD_TO_INR; // Divide INR by 83 to get USD
+            case "EUR": return amountInINR / EUR_TO_INR; // Divide INR by 90 to get EUR
+            case "JPY": return amountInINR / JPY_TO_INR; // Divide INR by 0.55 to get JPY
+            default:    return amountInINR; // If target is INR, keep it as is
         }
-
-        // Same currency — no conversion needed
-        if (fromCurrency.equals(toCurrency)) {
-            return amount;
-        }
-
-        // Step 1: convert source currency to INR
-        double amountInINR = amount * toINRRate(fromCurrency);
-
-        // Step 2: convert INR to target currency
-        return amountInINR / toINRRate(toCurrency);
     }
 
     /**
-     * Formats the conversion result as a readable string.
-     *
-     * @param result       Numeric result of conversion
-     * @param toCurrency   Target currency code
-     * @return Formatted result string (e.g., "Result: 83.00 INR")
+     * Makes the final number look clean (e.g., 83.0000).
      */
-    public static String formatResult(double result, String toCurrency) {
-        return String.format("%.4f %s", result, toCurrency);
+    public static String formatResult(double result, String currencyCode) {
+        // Format to 4 decimal places and add the currency code (like "USD") at the end
+        return String.format(Locale.getDefault(), "%.4f %s", result, currencyCode);
     }
 }

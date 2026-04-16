@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Tells the phone this is an XML file -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- The start of the app's instruction manual -->
 
+    <!-- Describes the app's global settings -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -8,24 +11,39 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CurrencyConverterApp">
+        <!-- allowBackup: Allows the phone to save app data to the cloud -->
+        <!-- icon: The app icon shown on the home screen -->
+        <!-- label: The name of the app shown under the icon -->
+        <!-- theme: The overall look/style of the app -->
 
         <!-- Main / Launcher Activity -->
+        <!-- Defines a screen in the app -->
         <activity
             android:name="com.example.currencyconverter.MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
+            <!-- name: The Java file linked to this screen -->
+            <!-- exported: Allows the phone to open this screen -->
+            <!-- windowSoftInputMode: Moves the UI up when the keyboard appears -->
+
+            <!-- Helps the phone decide how to open this screen -->
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN" /> <!-- Marks this as the main starting point -->
+                <category android:name="android.intent.category.LAUNCHER" /> <!-- Puts an icon on the home screen -->
             </intent-filter>
         </activity>
 
         <!-- Settings Activity -->
+        <!-- Defines the Settings screen -->
         <activity
             android:name="com.example.currencyconverter.SettingsActivity"
             android:exported="false"
             android:label="@string/title_settings"
             android:parentActivityName="com.example.currencyconverter.MainActivity">
+            <!-- exported: Only our app can open this screen, not others -->
+            <!-- parentActivityName: Sets MainActivity as the "Back" destination -->
+
+            <!-- Extra information for older phones -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.currencyconverter.MainActivity" />
