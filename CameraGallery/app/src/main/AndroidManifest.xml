@@ -1,16 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Root element of the manifest file, defining the package name -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.cameragalleryapp">
 
+    <!-- Declares that the app uses the camera hardware, but doesn't require it (so it can be installed on devices without a camera) -->
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
 
+    <!-- Permission to access the device's camera for taking photos -->
     <uses-permission android:name="android.permission.CAMERA" />
+
+    <!-- Permission to read from external storage, limited to SDK 32 and below (Android 12L) -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+
+    <!-- Permission to write to external storage, limited to SDK 29 and below (Android 10) for scoped storage compatibility -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="29" />
+
+    <!-- Permission to read image files on Android 13 (SDK 33) and higher -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
+    <!-- Configuration for the entire application -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -20,25 +30,30 @@
         android:theme="@style/Theme.CameraGalleryApp"
         android:requestLegacyExternalStorage="true">
         
+        <!-- The main activity that serves as the entry point for the app -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
+                <!-- Sets this activity as the main action and launcher icon -->
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         
+        <!-- Activity for showing specific image details, linked back to MainActivity as its parent -->
         <activity
             android:name=".ImageDetailsActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity" />
             
+        <!-- FileProvider used to securely share file URIs (like the photo taken by camera) with other apps -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.cameragalleryapp.provider"
             android:exported="false"
             android:grantUriPermissions="true">
+            <!-- Points to the XML file defining accessible file paths for the provider -->
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
