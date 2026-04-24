@@ -1,59 +1,59 @@
-package com.example.cameragalleryapp; // Package declaration
+package com.example.cameragalleryapp;
 
-import android.content.Context; // Context for layout inflation
-import android.net.Uri; // Uri to handle image sources
-import android.view.LayoutInflater; // For converting XML to View objects
-import android.view.View; // Base class for UI components
-import android.view.ViewGroup; // Container for layout views
-import android.widget.ImageView; // UI component for showing images
+import android.content.Context;
+import android.net.Uri;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 
-import androidx.annotation.NonNull; // To mark parameters as non-null
-import androidx.recyclerview.widget.RecyclerView; // Base class for dynamic lists
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.List; // For handling image URI lists
+import java.util.List;
 
-public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHolder> { // Define the adapter
+public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHolder> {
 
-    private Context context; // Reference to context
-    private List<Uri> imageUris; // List of image locations
-    private OnImageClickListener listener; // Custom click listener callback
+    private Context context;
+    private List<Uri> imageUris;
+    private OnImageClickListener listener;
 
-    public interface OnImageClickListener { // Define custom interface
-        void onImageClick(Uri uri); // Callback method for image click
+    public interface OnImageClickListener {
+        void onImageClick(Uri uri);
     }
 
-    public ImageAdapter(Context context, List<Uri> imageUris, OnImageClickListener listener) { // Constructor
-        this.context = context; // Initialize context
-        this.imageUris = imageUris; // Initialize URI list
-        this.listener = listener; // Initialize click listener
+    public ImageAdapter(Context context, List<Uri> imageUris, OnImageClickListener listener) {
+        this.context = context;
+        this.imageUris = imageUris;
+        this.listener = listener;
     }
 
     @NonNull
     @Override
-    public ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) { // Create a new row/item
-        View view = LayoutInflater.from(context).inflate(R.layout.item_image, parent, false); // Inflate the XML
-        return new ImageViewHolder(view); // Wrap the view in a ViewHolder
+    public ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.item_image, parent, false);
+        return new ImageViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) { // Fill item with data
-        Uri uri = imageUris.get(position); // Get URI for current position
-        holder.imageView.setImageURI(null); // Clear memory to avoid showing old images during scroll
-        holder.imageView.setImageURI(uri); // Set the new image URI to the ImageView
-        holder.itemView.setOnClickListener(v -> listener.onImageClick(uri)); // Handle clicks on the whole item
+    public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
+        Uri uri = imageUris.get(position);
+        holder.imageView.setImageURI(null); 
+        holder.imageView.setImageURI(uri);
+        holder.itemView.setOnClickListener(v -> listener.onImageClick(uri));
     }
 
     @Override
-    public int getItemCount() { // Get total number of items in list
-        return imageUris.size(); // Return size of the URI list
+    public int getItemCount() {
+        return imageUris.size();
     }
 
-    static class ImageViewHolder extends RecyclerView.ViewHolder { // Inner class to hold UI references
-        ImageView imageView; // Reference to the image view component
+    static class ImageViewHolder extends RecyclerView.ViewHolder {
+        ImageView imageView;
 
-        public ImageViewHolder(@NonNull View itemView) { // Constructor for ViewHolder
-            super(itemView); // Call parent constructor
-            imageView = itemView.findViewById(R.id.imageViewThumbnail); // Find image view by ID
+        public ImageViewHolder(@NonNull View itemView) {
+            super(itemView);
+            imageView = itemView.findViewById(R.id.imageViewThumbnail);
         }
     }
 }

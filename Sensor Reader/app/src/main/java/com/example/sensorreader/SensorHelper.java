@@ -1,25 +1,24 @@
-package com.example.sensorreader; // Defines the package name
+package com.example.sensorreader;
 
-import android.hardware.Sensor; // Imports Sensor class
-import android.hardware.SensorManager; // Imports SensorManager class
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 
-public class SensorHelper { // Helper class to simplify sensor retrieval
+public class SensorHelper {
+    private final SensorManager sensorManager;
 
-    private final SensorManager sensorManager; // Stores the sensor manager instance
-
-    public SensorHelper(SensorManager sensorManager) { // Constructor taking SensorManager as input
-        this.sensorManager = sensorManager; // Assigns the provided manager to the local field
+    public SensorHelper(SensorManager sensorManager) {
+        this.sensorManager = sensorManager;
     }
 
-    public Sensor getAccelerometer() { // Method to get the accelerometer sensor
-        return sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER); // Returns the default accelerometer
+    public Sensor getAccelerometer() {
+        return sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
     }
 
-    public Sensor getLightSensor() { // Method to get the light sensor
-        return sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT); // Returns the default light sensor
+    public Sensor getLightSensor() {
+        return sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
     }
 
-    public Sensor getProximitySensor() { // Method to get the proximity sensor
-        return sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY); // Returns the default proximity sensor
+    public Sensor getProximitySensor() {
+        return sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
     }
 }

@@ -1,76 +1,82 @@
-package com.example.mediaplayerapp; // Package declaration for the app
+package com.example.mediaplayerapp;
 
-import android.net.Uri; // Import for media resource location
-import android.view.View; // Import for controlling UI visibility
-import android.widget.ProgressBar; // Import for the loading bar
-import android.widget.TextView; // Import for status text display
-import android.widget.VideoView; // Import for video playback view
+import android.net.Uri;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.VideoView;
 
-public class MediaControllerHelper { // Class to handle media playback logic
+/**
+ * MediaControllerHelper abstracts the video playback logic from the main activity.
+ */
+public class MediaControllerHelper {
     
-    private final VideoView videoView; // Reference to the VideoView in UI
-    private final ProgressBar progressBar; // Reference to the ProgressBar in UI
-    private final TextView textStatus; // Reference to the status TextView in UI
+    private final VideoView videoView;
+    private final ProgressBar progressBar;
+    private final TextView textStatus;
 
-    public MediaControllerHelper(VideoView videoView, ProgressBar progressBar, TextView textStatus) { // Constructor
-        this.videoView = videoView; // Initialize the videoView reference
-        this.progressBar = progressBar; // Initialize the progressBar reference
-        this.textStatus = textStatus; // Initialize the textStatus reference
-        setupVideoView(); // Configure listeners for the video player
+    public MediaControllerHelper(VideoView videoView, ProgressBar progressBar, TextView textStatus) {
+        this.videoView = videoView;
+        this.progressBar = progressBar;
+        this.textStatus = textStatus;
+        setupVideoView();
     }
 
-    private void setupVideoView() { // Method to set up media event listeners
-        videoView.setOnPreparedListener(mp -> { // Called when media is ready to play
-            progressBar.setVisibility(View.GONE); // Hide the loading progress bar
-            textStatus.setText("Ready"); // Update status text to "Ready"
+    private void setupVideoView() {
+        // Handle media ready event
+        videoView.setOnPreparedListener(mp -> {
+            progressBar.setVisibility(View.GONE);
+            textStatus.setText("Ready");
         });
         
-        videoView.setOnErrorListener((mp, what, extra) -> { // Called if an error occurs during playback
-            progressBar.setVisibility(View.GONE); // Hide the loading progress bar
-            textStatus.setText("Playback error"); // Show error message in status text
-            return true; // Indicate that the error has been handled
+        // Handle media error event
+        videoView.setOnErrorListener((mp, what, extra) -> {
+            progressBar.setVisibility(View.GONE);
+            textStatus.setText("Playback error");
+            return true;
         });
 
-        videoView.setOnCompletionListener(mp -> { // Called when the media finishes playing
-            textStatus.setText("Playback completed"); // Update status text to "Completed"
+        // Handle media completion event
+        videoView.setOnCompletionListener(mp -> {
+            textStatus.setText("Playback completed");
         });
     }
 
-    public void loadMedia(Uri uri) { // Method to prepare media for playback from a URI
-        textStatus.setText("Loading..."); // Update status to inform user
-        progressBar.setVisibility(View.VISIBLE); // Show the loading progress bar
-        videoView.setVideoURI(uri); // Set the media source path
-        videoView.requestFocus(); // Request focus to handle playback properly
+    public void loadMedia(Uri uri) {
+        textStatus.setText("Loading...");
+        progressBar.setVisibility(View.VISIBLE);
+        videoView.setVideoURI(uri);
+        videoView.requestFocus();
     }
 
-    public void play() { // Method to start or resume playback
-        if (!videoView.isPlaying()) { // Check if not already playing
-            videoView.start(); // Start the video
-            textStatus.setText("Playing"); // Update status text
+    public void play() {
+        if (!videoView.isPlaying()) {
+            videoView.start();
+            textStatus.setText("Playing");
         }
     }
 
-    public void pause() { // Method to pause playback
-        if (videoView.isPlaying()) { // Check if currently playing
-            videoView.pause(); // Pause the video
-            textStatus.setText("Paused"); // Update status text
+    public void pause() {
+        if (videoView.isPlaying()) {
+            videoView.pause();
+            textStatus.setText("Paused");
         }
     }
 
-    public void stop() { // Method to stop playback entirely
-        if (videoView.isPlaying()) { // Check if playing
-            videoView.stopPlayback(); // Stop the playback
-            textStatus.setText("Stopped"); // Update status text
+    public void stop() {
+        if (videoView.isPlaying()) {
+            videoView.stopPlayback();
+            textStatus.setText("Stopped");
         } else {
-            videoView.suspend(); // Suspend the player if it's not active
-            textStatus.setText("Stopped"); // Update status text
+            videoView.suspend();
+            textStatus.setText("Stopped");
         }
     }
 
-    public void restart() { // Method to restart the media from the beginning
-        videoView.resume(); // Resume the video view state
-        videoView.seekTo(0); // Move playback position to the start (0ms)
-        videoView.start(); // Start playing immediately
-        textStatus.setText("Playing"); // Update status text
+    public void restart() {
+        videoView.resume();
+        videoView.seekTo(0);
+        videoView.start();
+        textStatus.setText("Playing");
     }
 }
